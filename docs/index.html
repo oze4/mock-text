@@ -22,7 +22,14 @@
       function z(p) {
         let c = 0;
         return p.split("").reduce((a, x) => {
+          // Determine if 'c', our counter, is 0. 
+          // This helps us alternate upper/lower casing.
           a += c % 2 === 0 ? x.toLowerCase() : x.toUpperCase();
+          // Ignore spaces.
+          // We do not want to increment our counter (also why we can't use an index),
+          // if we are at a space (obviously can't make a space lower/upper case).
+          // If a word ends in a lower case, the start of the next word should be upper case.
+          // If we treated spaces like an actual letter, it mAy lOoK like that and nOt LiKe that.
           c = c + (x !== " " ? 1 : 0);
           return a;
         }, "");
