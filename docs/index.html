@@ -16,13 +16,14 @@
       const o = document.getElementById("o");
 
       b.addEventListener("click", (e) => {
-        const t = i.value;
-        o.innerHTML = z(t);
+        o.innerHTML = z(i.value);
       });
 
       function z(p) {
+        let c = 0;
         return p.split("").reduce((a, x, i) => {
-          a += i % 2 === 0 ? x.toLowerCase() : x.toUpperCase();
+          a += c % 2 === 0 ? x.toLowerCase() : x.toUpperCase();
+          c = c + (x !== " " ? 1 : 0);
           return a;
         }, "");
       }
