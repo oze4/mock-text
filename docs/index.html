@@ -30,7 +30,7 @@
 
       function ctc(el) {
         if(navigator.clipboard){
-            return navigator.clipboard.writeText(el.value);
+            return navigator.clipboard.writeText(el.value || el.innerText);
         }
         el.focus();
         el.select();
