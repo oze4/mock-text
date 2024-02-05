@@ -7,17 +7,35 @@
     <title>mOcK tExT</title>
   </head>
   <body>
-    <textarea id="i"></textarea><br />
+    <textarea id="i"></textarea>
+    <br />
     <button id="b">Convert</button>
     <p id="o"></p>
+    <br />
+    <button id="cb" display="none">Copy to Clipboard</button>
     <script>
       const b = document.getElementById("b");
       const i = document.getElementById("i");
       const o = document.getElementById("o");
+      const cb = document.getElementById("cb");
 
       b.addEventListener("click", (e) => {
         o.innerText = z(i.value);
+        cb.style.display = "block";
       });
+
+      cb.addEventListener("click", (e) => {
+        ctc(o);
+      });
+
+      function ctc(el) {
+        if(navigator.clipboard){
+            return navigator.clipboard.writeText(el.value);
+        }
+        el.focus();
+        el.select();
+        document.execCommand('copy');
+      }
 
       function z(p) {
         const i = [ // Characters to ignore
