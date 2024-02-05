@@ -30,12 +30,13 @@
         
         let s = "";
         
-        for (let j = 0; j < p.length; j++) {
+        for (let j = 0, c = 0; j < p.length; j++) {
           const x = p.charAt(j);
           if (i.includes(x)) {
             continue;
           }
-          s += j % 2 === 0 ? x.toLowerCase() : x.toUpperCase();
+          s += c % 2 === 0 ? x.toLowerCase() : x.toUpperCase();
+          c++;
         }
 
         return s === "" ? p : s;
