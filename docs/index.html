@@ -20,16 +20,17 @@
       const cb = document.getElementById("cb");
 
       b.addEventListener("click", (e) => {
-        o.innerText = z(i.value);
+        o.innerText = mock(i.value);
         cb.style.display = "block";
       });
 
       cb.addEventListener("click", (e) => {
-        ctc(o);
+        copyToClipboard(o);
       });
 
-      function ctc(el) {
-        if(navigator.clipboard){
+      // Copies element value to clipboard. If no value property exists on provided element, we fallback to innerText.
+      function copyToClipboard(el) {
+        if (navigator.clipboard) {
             return navigator.clipboard.writeText(el.value || el.innerText);
         }
         el.focus();
@@ -37,7 +38,7 @@
         document.execCommand('copy');
       }
 
-      function z(p) {
+      function mock(p) {
         const i = [ // Characters to ignore
           "\"", "'", ".", "?", "!", ":", ";", "@", 
           "#", "$", "%", "^", "&", "*", "(", ")", 
@@ -51,22 +52,14 @@
         for (let j = 0, c = 0; j < p.length; j++) {
           const x = p.charAt(j);
           if (i.includes(x)) {
-            // Don't increment 'c', our counter if we are ignoring
-            // 'this' character. This keeps upper/lower casing in
-            // tact around ignored characters.
-            // For example: 
-            //   This.String
-            // ...should become:
-            //   tHiS.sTrInG
-            // Whereas if we were incrementing our counter during
-            // ignored characters, it would be:
-            //   tHiS.StRiNg
+            // Don't increment 'c', our counter if we are ignoring 'this' character. This keeps upper/lower casing in
+            // tact around ignored characters. For example: This.String ...should become... tHiS.sTrInG ...Whereas if
+            // we were incrementing our counter during ignored characters, it would be: tHiS.StRiNg
             s += x;
             continue;
           }
           s += c % 2 === 0 ? x.toLowerCase() : x.toUpperCase();
-          // Only increment counter if we aren't ignoring 'this' character.
-          c++;
+          c++; // Only increment counter if we aren't ignoring 'this' character.
         }
 
         return s;
