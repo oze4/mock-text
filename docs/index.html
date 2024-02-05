@@ -33,13 +33,25 @@
         for (let j = 0, c = 0; j < p.length; j++) {
           const x = p.charAt(j);
           if (i.includes(x)) {
+            // Don't increment 'c', our counter if we are ignoring
+            // 'this' character. This keeps upper/lower casing in
+            // tact around ignored characters.
+            // For example: 
+            //   This.String
+            // ...should become:
+            //   tHiS.sTrInG
+            // Whereas if we were incrementing our counter during
+            // ignored characters, it would be:
+            //   tHiS.StRiNg
+            s += x;
             continue;
           }
           s += c % 2 === 0 ? x.toLowerCase() : x.toUpperCase();
+          // Only increment counter if we aren't ignoring 'this' character.
           c++;
         }
 
-        return s === "" ? p : s;
+        return s;
       }
     </script>
   </body>
